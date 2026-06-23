@@ -1,4 +1,3 @@
-
 "use client";
 
 import { motion } from "framer-motion";
@@ -8,8 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { 
   ShieldCheck, 
   Zap, 
-  BarChart3, 
-  Globe2 
+  ChartBar, 
+  Globe 
 } from "lucide-react";
 
 const containerVariants = {
@@ -87,12 +86,12 @@ export default function Home() {
               description="Reactive calculations that adapt to every keystroke with millisecond latency."
             />
             <FeatureCard 
-              icon={<BarChart3 className="w-6 h-6" />} 
+              icon={<ChartBar className="w-6 h-6" />} 
               title="Analytical" 
               description="Beautifully rendered charts that break down your fiscal obligations visually."
             />
             <FeatureCard 
-              icon={<Globe2 className="w-6 h-6" />} 
+              icon={<Globe className="w-6 h-6" />} 
               title="Adaptive" 
               description="Fluid responsiveness and multi-language support for the global nomad."
             />

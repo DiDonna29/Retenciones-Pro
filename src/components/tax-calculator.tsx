@@ -1,8 +1,7 @@
-
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/context/language-context";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,7 +12,7 @@ import {
   TrendingDown, 
   TrendingUp, 
   Wallet,
-  PieChart as PieChartIcon,
+  ChartPie as PieChartIcon,
   Info,
   DollarSign
 } from "lucide-react";

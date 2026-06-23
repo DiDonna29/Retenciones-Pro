@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from "react";
@@ -13,7 +12,7 @@ import {
   Calculator,
   LayoutDashboard,
   Settings,
-  HelpCircle
+  CircleHelp
 } from "lucide-react";
 import { 
   DropdownMenu, 
@@ -91,7 +90,7 @@ export function DashboardHeader() {
 
           <div className="lg:hidden">
             <Button variant="ghost" size="icon" className="w-12 h-12 rounded-2xl">
-              <HelpCircle className="w-6 h-6" />
+              <CircleHelp className="w-6 h-6" />
             </Button>
           </div>
         </div>
