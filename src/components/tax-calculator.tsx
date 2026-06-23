@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/context/language-context";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -25,8 +25,13 @@ import {
 } from "recharts";
 
 export function TaxCalculator() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [grossAmount, setGrossAmount] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const calculations = useMemo(() => {
     const amount = parseFloat(grossAmount) || 0;
@@ -44,14 +49,20 @@ export function TaxCalculator() {
     };
   }, [grossAmount]);
 
-  const chartData = [
+  const chartData = useMemo(() => [
     { name: t("netPayable"), value: calculations.net, color: "hsl(var(--primary))" },
     { name: t("baseTax_val"), value: calculations.baseTax, color: "hsl(var(--accent))" },
     { name: t("retention_val"), value: calculations.retention, color: "hsl(var(--destructive))" },
-  ].filter(d => d.value > 0);
+  ].filter(d => d.value > 0), [calculations, t]);
 
   const formatCurrency = (val: number) => {
-    return new Intl.NumberFormat(undefined, {
+    if (!mounted) {
+      // Return a stable format for server-side rendering to prevent hydration mismatch
+      return `$${val.toFixed(2)}`;
+    }
+    // Use the specific language locale to keep formatting consistent between server-guess and client
+    const locale = language === "es" ? "es-MX" : "en-US";
+    return new Intl.NumberFormat(locale, {
       style: "currency",
       currency: "USD",
       maximumFractionDigits: 2,

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { DashboardHeader } from "@/components/dashboard-header";
 import { TaxCalculator } from "@/components/tax-calculator";
@@ -35,6 +36,12 @@ const itemVariants = {
 };
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#F8FAFC] dark:bg-[#020617] transition-colors duration-700">
       <DashboardHeader />
@@ -109,7 +116,7 @@ export default function Home() {
             <span className="font-bold tracking-tight">Retenciones Pro</span>
           </div>
           <div className="text-sm text-muted-foreground font-medium">
-            © {new Date().getFullYear()} Precision Design. All rights reserved.
+            © {mounted ? new Date().getFullYear() : "2024"} Precision Design. All rights reserved.
           </div>
           <div className="flex items-center gap-8 text-sm font-semibold text-muted-foreground">
             <a href="#" className="hover:text-primary transition-colors">Privacy</a>
