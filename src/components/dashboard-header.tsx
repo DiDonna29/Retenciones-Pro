@@ -2,6 +2,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import { useLanguage } from "@/context/language-context";
 import { useTheme } from "@/context/theme-context";
 import { Button } from "@/components/ui/button";
@@ -26,45 +27,49 @@ export function DashboardHeader() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/30 group-hover:scale-105 transition-transform duration-300">
-            <Calculator className="w-6 h-6 text-primary-foreground" />
-          </div>
+    <motion.header 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-[backdrop-filter]:bg-background/40"
+    >
+      <div className="container-fixed h-20 flex items-center justify-between">
+        <div className="flex items-center gap-4 group cursor-pointer">
+          <motion.div 
+            whileHover={{ rotate: 5, scale: 1.05 }}
+            className="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center shadow-xl shadow-primary/30"
+          >
+            <Calculator className="w-7 h-7 text-primary-foreground" />
+          </motion.div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight leading-none">{t("title")}</h1>
-            <p className="text-[10px] text-muted-foreground uppercase tracking-widest mt-1 font-semibold">{t("subtitle")}</p>
+            <h1 className="text-2xl font-black tracking-tighter leading-none">{t("title")}</h1>
+            <p className="text-[10px] text-muted-foreground uppercase tracking-[0.3em] mt-1 font-black opacity-60">{t("subtitle")}</p>
           </div>
         </div>
 
-        <nav className="hidden md:flex items-center gap-1 mx-8 flex-1">
-          <Button variant="ghost" size="sm" className="gap-2 text-primary font-semibold bg-primary/10">
+        <nav className="hidden lg:flex items-center gap-2 mx-8 flex-1 justify-center">
+          <Button variant="ghost" className="gap-2 font-bold px-6 rounded-full hover:bg-primary/5 transition-all">
             <LayoutDashboard className="w-4 h-4" />
             {t("summary")}
           </Button>
-          <Button variant="ghost" size="sm" className="gap-2">
+          <Button variant="ghost" className="gap-2 font-bold px-6 rounded-full hover:bg-primary/5 transition-all">
             <Settings className="w-4 h-4" />
             {t("settings")}
           </Button>
-          <Button variant="ghost" size="sm" className="gap-2">
-            <HelpCircle className="w-4 h-4" />
-          </Button>
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="rounded-full w-10 h-10">
-                <Languages className="h-[1.2rem] w-[1.2rem]" />
+              <Button variant="outline" size="icon" className="rounded-2xl w-12 h-12 border-none bg-muted/40 hover:bg-muted transition-all">
+                <Languages className="h-5 w-5" />
                 <span className="sr-only">Toggle language</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setLanguage("en")} className={language === "en" ? "font-bold text-primary" : ""}>
+            <DropdownMenuContent align="end" className="rounded-2xl border-none shadow-2xl p-2">
+              <DropdownMenuItem onClick={() => setLanguage("en")} className={`rounded-xl px-4 py-3 font-bold ${language === "en" ? "bg-primary text-white" : ""}`}>
                 English
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setLanguage("es")} className={language === "es" ? "font-bold text-primary" : ""}>
+              <DropdownMenuItem onClick={() => setLanguage("es")} className={`rounded-xl px-4 py-3 font-bold ${language === "es" ? "bg-primary text-white" : ""}`}>
                 Español
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -74,17 +79,23 @@ export function DashboardHeader() {
             variant="outline" 
             size="icon" 
             onClick={toggleTheme} 
-            className="rounded-full w-10 h-10 transition-all duration-500 hover:rotate-12"
+            className="rounded-2xl w-12 h-12 border-none bg-muted/40 hover:bg-muted transition-all"
           >
             {theme === "light" ? (
-              <Moon className="h-[1.2rem] w-[1.2rem]" />
+              <Moon className="h-5 w-5" />
             ) : (
-              <Sun className="h-[1.2rem] w-[1.2rem]" />
+              <Sun className="h-5 w-5" />
             )}
             <span className="sr-only">Toggle theme</span>
           </Button>
+
+          <div className="lg:hidden">
+            <Button variant="ghost" size="icon" className="w-12 h-12 rounded-2xl">
+              <HelpCircle className="w-6 h-6" />
+            </Button>
+          </div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }
