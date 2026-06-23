@@ -59,13 +59,13 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground transition-colors duration-500 font-body selection:bg-primary/20 selection:text-primary;
+    @apply bg-background text-foreground transition-colors duration-500 font-body selection:bg-primary/20 selection:text-primary overflow-x-hidden;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
 .glass-card {
-  @apply bg-card/60 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)];
+  @apply bg-card/60 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.08)] overflow-hidden;
 }
 
 .premium-shadow {
@@ -78,4 +78,11 @@
 
 .container-fixed {
   @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden;
+}
+
+/* Ensure numbers never break containers */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }
